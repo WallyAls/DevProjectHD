@@ -38,6 +38,24 @@ namespace LMS.librarian
                 cmd.ExecuteNonQuery();
             }
 
+            else if (Request.QueryString["id1"] != null)
+            {
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "update books set books_pdf='' where id='" + Request.QueryString["id1"].ToString() + "' ";
+                cmd.ExecuteNonQuery();
+
+            }
+            else
+            {
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "delete books where id='" + Request.QueryString["id2"].ToString() + "' ";
+                cmd.ExecuteNonQuery();
+
+
+            }
+
 
             Response.Redirect("display_all_books.aspx");
            
