@@ -47,7 +47,7 @@ namespace LMS.librarian.Tests
             Assert.IsTrue(x != y);
         }
 
-        //checks that the getrandompassword eventually has a value of 1
+        //checks that the getrandompassword eventually has a value of 1.
         [TestMethod()]
         public void GetRandomPasswordTest5()
         {
