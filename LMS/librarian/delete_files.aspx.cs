@@ -9,6 +9,7 @@ using System.Data;
 
 namespace LMS.librarian
 {
+	//used to delete books
     public partial class delete_file : System.Web.UI.Page
     {
 
