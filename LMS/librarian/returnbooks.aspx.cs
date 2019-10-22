@@ -22,40 +22,6 @@ namespace LMS.librarian
             }
             con.Open();
 
-            if (Session["librarian"] == null)
-            {
-                Response.Redirect("login.aspx");
-            }
-
-
-            id = Convert.ToInt32(Request.QueryString["id"].ToString());
-
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "update issue_books set is_book_return='yes', books_returned_date='"+DateTime.Now.ToString("yyyy/MM/dd")+"'where id="+id+"";
-            cmd.ExecuteNonQuery();
-
-
-            SqlCommand cmd1 = con.CreateCommand();
-            cmd1.CommandType = CommandType.Text;
-            cmd1.CommandText = "select * from issue_books where id="+id+"";
-            cmd1.ExecuteNonQuery();
-            DataTable dt1 = new DataTable();
-            SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
-            da1.Fill(dt1);
-            foreach (DataRow dr1 in dt1.Rows)
-            {
-                books_isbn = dr1["books_isbn"].ToString();
-            }
-
-            SqlCommand cmd2 = con.CreateCommand();
-            cmd2.CommandType = CommandType.Text;
-            cmd2.CommandText = "update books set avaliable_qty = avaliable_qty + 1 where books_isbn ='"+books_isbn.ToString()+"'";
-            cmd2.ExecuteNonQuery();
-
-
-            Response.Redirect("return_books.aspx");
-
 
         }
     }
