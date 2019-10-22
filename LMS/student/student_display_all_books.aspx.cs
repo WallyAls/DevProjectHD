@@ -20,6 +20,15 @@ namespace LMS.student
 
         public string checkpdf(object myvalue1, object id1)
         {
+            if (myvalue1 == null)
+            {
+                return "Not Avalibale";
+            }
+            else
+            {
+                myvalue1 = "../librarian/" + myvalue1.ToString();
+                return "<a href ='" + myvalue1.ToString() + "' style ='color:green'>view pdf </a>";
+            }
 
 
         }
