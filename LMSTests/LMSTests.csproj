@@ -58,8 +58,6 @@
   <ItemGroup>
     <Compile Include="Class1Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="student_display_all_booksTests.cs" />
-    <Compile Include="student_registrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
