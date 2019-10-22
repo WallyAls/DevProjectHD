@@ -43,6 +43,37 @@ namespace LMS.librarian
             }
         }
 
-    
+        protected void b1_Click(object sender, EventArgs e)
+        {
+            int count = 0;
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from Penalty1";
+            cmd.ExecuteNonQuery();
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            count= Convert.ToInt32(dt.Rows.Count.ToString());
+            if (count == 0)
+            {
+                SqlCommand cmd1 = con.CreateCommand();
+                cmd1.CommandType = CommandType.Text;
+                cmd1.CommandText = "insert into Penalty1 values('"+Penalty1.Text+"')";
+                cmd1.ExecuteNonQuery();
+            }
+
+        
+            else {
+
+                SqlCommand cmd1 = con.CreateCommand();
+                cmd1.CommandType = CommandType.Text;
+                cmd1.CommandText = "update Penalty1 set Penalty1 ='" + Penalty1.Text + "'";
+                cmd1.ExecuteNonQuery();
+
+            }
+
+            Response.Redirect("add_penalty.aspx");
+
+        }
     }
 }
