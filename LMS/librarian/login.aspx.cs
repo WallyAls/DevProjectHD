@@ -21,5 +21,28 @@ namespace LMS.librarian
             con.Open();
         }
 
+        protected void b1_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select * from  librarian_registration where username ='" + username.Text + "' and password = '" + password.Text + "'";
+            cmd.ExecuteNonQuery();
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            i = Convert.ToInt32(dt.Rows.Count.ToString());
+
+            if (i > 0)
+            {
+                Session["librarian"] = username.Text;
+                Response.Redirect("demo.aspx");
+            }
+            else
+            {
+                error.Style.Add("display", "block");
+            }
+
+        }
     }
 }
