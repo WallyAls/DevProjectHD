@@ -11,10 +11,7 @@ namespace LMS.student
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["student"] == null)
-            {
-                Response.Redirect("student_login.aspx");
-            }
+         
 
         }
     }
