@@ -128,6 +128,26 @@ namespace LMS.librarian
             }
         }
 
-       
+        protected void isbn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            i1.ImageUrl = "";
+            booksname.Text = "";
+            instock.Text = "";
+
+
+            SqlCommand cmd2 = con.CreateCommand();
+            cmd2.CommandType = CommandType.Text;
+            cmd2.CommandText = "select * from books where books_isbn ='" + isbn.SelectedItem.ToString() +"'";
+            cmd2.ExecuteNonQuery();
+            DataTable dt2 = new DataTable();
+            SqlDataAdapter da2 = new SqlDataAdapter(cmd2);
+            da2.Fill(dt2);
+            foreach (DataRow dr2 in dt2.Rows)
+            {
+                i1.ImageUrl = dr2["books_image"].ToString();
+                booksname.Text = dr2["books_title"].ToString();
+                instock.Text = dr2["avaliable_qty"].ToString();
+            }
+        }
     }
 }
