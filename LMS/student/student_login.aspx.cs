@@ -14,6 +14,11 @@ namespace LMS.student
         SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\LMS\LMS\LMS\App_Data\lms.mdf;Integrated Security=True");
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+                con.Close();
+            }
+            con.Open();
         }
 
         protected void b1_Click(object sender, EventArgs e)
