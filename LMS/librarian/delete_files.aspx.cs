@@ -18,7 +18,32 @@ namespace LMS.librarian
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (con.State == System.Data.ConnectionState.Open)
+            {
+                con.Close();
+            }
+            con.Open();
+			// this is to get the session thata is it doesnt allow people to use the software if the person isnt logged in
+            if (Session["librarian"] == null)
+            {
+                Response.Redirect("login.aspx");
+            }
+
+
+            if (Request.QueryString["id"] != null)
+            {
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "update books set books_video='' where id='" + Request.QueryString["id"].ToString() + "' ";
+                cmd.ExecuteNonQuery();
+            }
+
            
+
+            Response.Redirect("display_all_books.aspx");
+           
+
+
         }
 
     }
