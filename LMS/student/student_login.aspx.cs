@@ -14,35 +14,12 @@ namespace LMS.student
         SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\LMS\LMS\LMS\App_Data\lms.mdf;Integrated Security=True");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (con.State == System.Data.ConnectionState.Open)
-            {
-                con.Close();
-            }
-            con.Open();
         }
 
         protected void b1_Click(object sender, EventArgs e)
         {
 
-            int i = 0;
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from  student_registration where username ='" + username.Text + "' and password = '" + password.Text + "'and approved='yes'";
-            cmd.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            da.Fill(dt);
-            i = Convert.ToInt32(dt.Rows.Count.ToString());
-
-            if (i > 0)
-            {
-                Session["student"] = username.Text;
-                Response.Redirect("student_display_all_books.aspx");
-            }
-            else
-            {
-                error.Style.Add("display", "block");
-            }
+            
 
         }
     }
