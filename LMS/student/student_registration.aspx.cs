@@ -30,6 +30,69 @@ namespace LMS.student
         protected void b1_Click(object sender, EventArgs e)
         {
 
+            int count1 = 0;
+            int count2 = 0;
+
+            if (IsReCaptchValid())
+            {
+             
+                SqlCommand cmd1 = con.CreateCommand();
+                cmd1.CommandType = CommandType.Text;
+                cmd1.CommandText = "select * from  student_registration where enrollment_no ='" + enrollmentno.Text + "'";
+                cmd1.ExecuteNonQuery();
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
+                da1.Fill(dt1);
+                count1 = Convert.ToInt32(dt1.Rows.Count.ToString());
+
+                if (count1 > 0)
+                {
+
+                    Response.Write("<script>alert('This enrollment number is alredy used');</script>");
+
+                }
+                else
+                { // this for checking unique username 
+
+                    SqlCommand cmd2 = con.CreateCommand();
+                    cmd2.CommandType = CommandType.Text;
+                    cmd2.CommandText = "select * from  student_registration where username ='" + username.Text + "'";
+                    cmd2.ExecuteNonQuery();
+                    DataTable dt2 = new DataTable();
+                    SqlDataAdapter da2 = new SqlDataAdapter(cmd2);
+                    da2.Fill(dt2);
+                    count2 = Convert.ToInt32(dt2.Rows.Count.ToString());
+
+                    //end here for that 
+
+                    if (count2 > 0)
+                    {
+
+                        Response.Write("<script>alert('This username already exist');</script>");
+
+                    }
+
+                    else
+                    {
+
+
+                        string randomno = Class1.GetRandomPassword(10) + ".jpg";
+                        string path = "";
+                        f1.SaveAs(Request.PhysicalApplicationPath + "/student/student_img/" + randomno.ToString());
+                        path = " / student / student_img/" + randomno.ToString();
+                        SqlCommand cmd = con.CreateCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "insert into student_registration values('" + firstname.Text + "','" + lastname.Text + "','" + enrollmentno.Text + "','" + username.Text + "','" + password.Text + "','" + email.Text + "','" + contact.Text + "','" + path.ToString() + "','no')";
+                        cmd.ExecuteNonQuery();
+
+                        Response.Write("<script>alert('record inserted succesfully');</script>");
+                    }
+                }
+                }
+            else
+            {
+                lblMessage1.Text = "this is invalid";
+            }
 
            
 
